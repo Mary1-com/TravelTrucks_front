@@ -1,0 +1,81 @@
+.reviews {
+    min-width: 0;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+.list {
+    display: grid;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.card {
+    padding: 16px;
+    border-radius: 16px;
+    background-color: var(--color-surface);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatar {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+
+    color: var(--color-primary);
+    background-color: var(--color-background);
+
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.name {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.rating {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.rating svg {
+    width: 16px;
+    height: 16px;
+}
+
+.starActive {
+    color: #ffc531;
+}
+
+.starInactive {
+    color: var(--color-border);
+}
+
+.comment {
+    margin-top: 16px;
+
+    color: var(--color-text-muted);
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.empty {
+    margin-top: 24px;
+    color: var(--color-text-muted);
+}

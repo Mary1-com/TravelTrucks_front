@@ -1,0 +1,87 @@
+.gallery {
+    width: 100%;
+    min-width: 0;
+}
+
+.mainImage {
+    position: relative;
+    overflow: hidden;
+
+    width: 100%;
+    aspect-ratio: 640 / 508;
+    border-radius: 20px;
+
+    background-color: var(--color-surface);
+}
+
+.mainImage img,
+.thumbnailButton img {
+    object-fit: cover;
+}
+
+.thumbnails {
+    display: grid;
+    grid-template-columns: repeat(4, 136px);
+    gap: 32px;
+
+    margin-top: 27px;
+}
+
+.thumbnailButton {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    width: 136px;
+    height: 144px;
+    padding: 0;
+    border: 3px solid transparent;
+    border-radius: 12px;
+
+    background-color: var(--color-surface);
+    cursor: pointer;
+
+    transition:
+        border-color 200ms ease,
+        opacity 200ms ease;
+}
+
+.thumbnailButton:hover {
+    opacity: 0.85;
+}
+
+.thumbnailButton.selected {
+    border-color: var(--color-primary);
+}
+
+.thumbnailButton:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+.placeholder {
+    display: grid;
+    place-items: center;
+
+    width: 100%;
+    min-height: 508px;
+    border-radius: 20px;
+
+    color: var(--color-text-muted);
+    background-color: var(--color-surface);
+}
+
+@media (max-width: 700px) {
+    .thumbnails {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .thumbnailButton {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 136 / 144;
+        border-radius: 8px;
+    }
+}

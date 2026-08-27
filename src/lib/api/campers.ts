@@ -1,6 +1,8 @@
 import type {
+    CamperDetails,
     CamperFilters,
     CamperListResponse,
+    CamperReview,
 } from "@/types/camper";
 
 const API_BASE_URL = "https://campers-api.goit.study";
@@ -52,4 +54,40 @@ export async function fetchCampers({
     }
 
     return response.json() as Promise<CamperListResponse>;
+}
+
+export async function fetchCamperById(
+    camperId: string,
+    signal?: AbortSignal,
+): Promise<CamperDetails> {
+    const response = await fetch(
+        `${API_BASE_URL}/campers/${encodeURIComponent(camperId)}`,
+        { signal },
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            `Failed to fetch camper: ${response.status}`,
+        );
+    }
+
+    return response.json() as Promise<CamperDetails>;
+}
+
+export async function fetchCamperReviews(
+    camperId: string,
+    signal?: AbortSignal,
+): Promise<CamperReview[]> {
+    const response = await fetch(
+        `${API_BASE_URL}/campers/${encodeURIComponent(camperId)}/reviews`,
+        { signal },
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            `Failed to fetch camper reviews: ${response.status}`,
+        );
+    }
+
+    return response.json() as Promise<CamperReview[]>;
 }

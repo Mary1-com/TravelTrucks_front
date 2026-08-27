@@ -57,3 +57,27 @@ export interface CamperFilters {
     engine: CamperEngine | "";
     transmission: CamperTransmission | "";
 }
+
+export interface CamperGalleryImage {
+    id: string;
+    camperId: string;
+    thumb: string;
+    original: string;
+    order: number;
+}
+
+export interface CamperReview {
+    id: string;
+    camperId: string;
+    reviewer_name: string;
+    reviewer_rating: number;
+    comment: string;
+    createdAt: string;
+    }
+
+export interface CamperDetails
+    extends Omit<CamperListItem, "coverImage"> {
+    createdAt: string;
+    updatedAt: string;
+    gallery: CamperGalleryImage[];
+}
