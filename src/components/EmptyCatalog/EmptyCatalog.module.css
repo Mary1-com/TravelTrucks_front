@@ -1,0 +1,134 @@
+.empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    min-height: 744px;
+    padding: 48px 24px;
+    border-radius: 20px;
+
+    text-align: center;
+    background-color: var(--color-surface);
+}
+
+.imageWrapper {
+    width: 100%;
+    max-width: 488px;
+}
+
+.image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.title {
+    margin-top: 24px;
+
+    color: var(--color-text);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+.description {
+    margin-top: 12px;
+
+    color: var(--color-text);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+
+    margin-top: 32px;
+}
+
+.clearButton,
+.viewAllButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 170px;
+    min-height: 48px;
+    padding: 12px 24px;
+    border-radius: 200px;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+
+    cursor: pointer;
+    transition:
+        border-color 200ms ease,
+        background-color 200ms ease;
+}
+
+.clearButton {
+    gap: 8px;
+    border: 1px solid var(--color-border);
+
+    color: var(--color-text);
+    background-color: var(--color-background);
+}
+
+.clearButton svg {
+    width: 12px;
+    height: 12px;
+}
+
+.clearButton:hover {
+    border-color: var(--color-primary-hover);
+}
+
+.clearButton:focus-visible {
+    border-color: var(--color-primary-hover);
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+.viewAllButton {
+    border: 0;
+
+    color: var(--color-background);
+    background-color: var(--color-primary);
+}
+
+.viewAllButton:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.viewAllButton:focus-visible {
+    background-color: var(--color-primary-hover);
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    .empty {
+        min-height: auto;
+        padding: 40px 16px;
+    }
+
+    .image {
+        max-width: 320px;
+    }
+
+    .actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .clearButton,
+    .viewAllButton {
+        width: 100%;
+        max-width: 280px;
+    }
+}

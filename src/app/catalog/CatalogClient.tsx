@@ -6,6 +6,8 @@ import FiltersSidebar from "@/components/FiltersSidebar/FiltersSidebar";
 import { fetchCampers } from "@/lib/api/campers";
 import type { CamperFilters } from "@/types/camper";
 import CamperCard from "@/components/CamperCard/CamperCard";
+import EmptyCatalog from "@/components/EmptyCatalog/EmptyCatalog";
+import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";
 import styles from "./catalog.module.css";
 
 const emptyFilters: CamperFilters = {
@@ -33,6 +35,7 @@ export default function CatalogClient() {
         fetchNextPage,
         hasNextPage,
         isError,
+        isFetching,
         isFetchingNextPage,
         isPending,
     } = useInfiniteQuery({
@@ -53,16 +56,6 @@ export default function CatalogClient() {
     const campers =
         data?.pages.flatMap((page) => page.campers) ?? [];
 
-    if (isPending) {
-        return (
-            <main className={styles.catalog}>
-                <p className={styles.status} role="status">
-                Loading campers...
-                </p>
-            </main>
-        );
-    }
-
     if (isError) {
         return (
             <main className={styles.catalog}>
@@ -79,6 +72,10 @@ export default function CatalogClient() {
                 TravelTrucks camper catalog
             </h1>
 
+            {isFetching && !isFetchingNextPage && (
+                <LoadingOverlay />
+            )}
+
             <div className={styles.layout}>
                 <FiltersSidebar
                     filters={draftFilters}
@@ -94,59 +91,48 @@ export default function CatalogClient() {
                     aria-label="Camper search results"
                 >
                     {campers.length === 0 ? (
-                    <p className={styles.status}>No campers found.</p>
+                        <EmptyCatalog
+                            onClear={handleClearFilters}
+                            onViewAll={handleClearFilters}
+                        />
                     ) : (
-                    <>
-                        <ul className={styles.list}>
-                            {campers.map((camper) => (
-                                <li key={camper.id}>
-                                    <CamperCard camper={camper} />
-                                </li>
-                            ))}
-                        </ul>
+                            <>
+                                {isPending ? null : campers.length === 0 ? (
+                                    <EmptyCatalog
+                                        onClear={handleClearFilters}
+                                        onViewAll={handleClearFilters}
+                                    />
+                                ) : (
+                                        <>
+                                            <ul className={styles.list}>
+                                                {campers.map((camper, index) => (
+                                                    <li key={camper.id}>
+                                                        <CamperCard
+                                                            camper={camper}
+                                                            priority={index === 0}
+                                                        />
+                                                    </li>
+                                                ))}
+                                            </ul>
 
-                        {hasNextPage && (
-                            <button
-                                className={styles.loadMoreButton}
-                                type="button"
-                                disabled={isFetchingNextPage}
-                                onClick={() => fetchNextPage()}
-                            >
-                                {isFetchingNextPage
-                                ? "Loading..."
-                                : "Load more"}
-                            </button>
-                        )}
-                    </>
+                                            {hasNextPage && (
+                                                <button
+                                                    className={styles.loadMoreButton}
+                                                    type="button"
+                                                    disabled={isFetchingNextPage}
+                                                    onClick={() => fetchNextPage()}
+                                                >
+                                                    {isFetchingNextPage
+                                                    ? "Loading..."
+                                                    : "Load more"}
+                                                </button>
+                                            )}
+                                        </>
+                                )}
+                            </>
                     )}
                 </section>
             </div>
-
-            {campers.length === 0 ? (
-                <p className={styles.status}>No campers found.</p>
-            ) : (
-                    <>
-                        {/* <ul className={styles.list}>
-                            {campers.map((camper) => (
-                                <li key={camper.id}>
-                                    <CamperCard camper={camper} />
-                                </li>
-                            ))}
-                        </ul> */}
-                        {/* {hasNextPage && (
-                            <button
-                                className={styles.loadMoreButton}
-                                type="button"
-                                disabled={isFetchingNextPage}
-                                onClick={() => fetchNextPage()}
-                            >
-                                {isFetchingNextPage
-                                    ? "Loading..."
-                                    : "Load more"}
-                            </button>
-                        )} */}
-                    </>
-            )}
         </main>
     );
 }
