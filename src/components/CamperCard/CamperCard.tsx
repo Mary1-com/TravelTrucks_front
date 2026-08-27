@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BsDiagram3 } from "react-icons/bs";
 import { FaGasPump, FaCar, FaStar } from "react-icons/fa";
 import { PiMapTrifold } from "react-icons/pi";
-import { TbGasStation } from "react-icons/tb";
+
 import type {
     CamperForm,
     CamperListItem,
@@ -12,6 +12,7 @@ import styles from "./CamperCard.module.css";
 
 interface CamperCardProps {
     camper: CamperListItem;
+    priority?: boolean;
 }
 
 const formLabels: Record<CamperForm, string> = {
@@ -33,6 +34,7 @@ function formatLocation(location: string) {
 
 export default function CamperCard({
     camper,
+    priority = false,
     }: CamperCardProps) {
     return (
         <article className={styles.card}>
@@ -40,6 +42,7 @@ export default function CamperCard({
                 className={styles.image}
                 src={camper.coverImage}
                 alt={`${camper.name} camper`}
+                priority={priority}
                 width={220}
                 height={264}
                 sizes="(max-width: 767px) 100vw, 220px"
