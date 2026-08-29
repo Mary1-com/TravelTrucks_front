@@ -119,15 +119,27 @@
     text-align: right;
 }
 
-@media (max-width: 600px) {
-
+@media (max-width: 767px) {
     .summary,
     .vehicle {
-        padding: 24px;
+        padding: 20px;
     }
 
     .name {
-        font-size: 28px;
-        line-height: 36px;
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .features {
+        gap: 8px;
+    }
+
+    .feature {
+        min-height: 44px;
+        padding: 10px 14px;
+    }
+
+    .detailRow {
+        gap: 16px;
     }
 }

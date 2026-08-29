@@ -150,15 +150,15 @@
     line-height: 20px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
     .booking {
         margin-top: 0;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
     .booking {
-        padding: 24px;
+        padding: 24px 20px;
     }
 
     .notification {

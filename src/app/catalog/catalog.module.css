@@ -21,6 +21,13 @@
 .list {
     display: grid;
     gap: 24px;
+    width: 100%;
+    min-width: 0;
+}
+
+.list > li {
+    width: 100%;
+    min-width: 0;
 }
 
 .status,
@@ -81,21 +88,34 @@
 
 @media (max-width: 1100px) {
     .catalog {
-        padding-inline: 32px;
+        padding: 40px 32px;
     }
 
     .layout {
-        grid-template-columns: 320px minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1fr);
         gap: 32px;
+    }
+
+    .results {
+        max-width: none;
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
     .catalog {
-        padding: 32px 24px;
+        padding: 24px 16px 40px;
     }
 
     .layout {
-        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .list {
+        gap: 16px;
+    }
+
+    .loadMoreButton {
+        width: 100%;
+        margin-top: 24px;
     }
 }
