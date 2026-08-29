@@ -79,3 +79,14 @@
     margin-top: 24px;
     color: var(--color-text-muted);
 }
+
+@media (min-width: 1101px) {
+    .list {
+        min-height: 384px;
+        grid-auto-rows: minmax(0, 1fr);
+    }
+
+    .card {
+        height: 100%;
+    }
+}

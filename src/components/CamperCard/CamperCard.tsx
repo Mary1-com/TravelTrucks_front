@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BsDiagram3 } from "react-icons/bs";
-import { FaGasPump, FaCar, FaStar } from "react-icons/fa";
+import { FaCar, FaGasPump, FaStar } from "react-icons/fa";
 import { PiMapTrifold } from "react-icons/pi";
 
 import type {
     CamperForm,
     CamperListItem,
 } from "@/types/camper";
+
 import styles from "./CamperCard.module.css";
 
 interface CamperCardProps {
@@ -23,7 +24,9 @@ const formLabels: Record<CamperForm, string> = {
 };
 
 function formatLocation(location: string) {
-    const parts = location.split(",").map((part) => part.trim());
+    const parts = location
+        .split(",")
+        .map((part) => part.trim());
 
     if (parts.length !== 2) {
         return location;
@@ -35,7 +38,7 @@ function formatLocation(location: string) {
 export default function CamperCard({
     camper,
     priority = false,
-    }: CamperCardProps) {
+}: CamperCardProps) {
     return (
         <article className={styles.card}>
             <Image
@@ -44,7 +47,7 @@ export default function CamperCard({
                 alt={`${camper.name} camper`}
                 priority={priority}
                 width={220}
-                height={264}
+                height={240}
                 sizes="(max-width: 767px) 100vw, 220px"
             />
 

@@ -59,3 +59,34 @@
     outline: 2px solid var(--color-primary);
     outline-offset: 4px;
 }
+
+@media (max-width: 1100px) {
+    .container {
+        padding-inline: 32px;
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 20px;
+        padding-inline: 16px;
+    }
+
+    .container > :last-child {
+        display: none;
+    }
+
+    .logo {
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    .container nav {
+        justify-self: end;
+    }
+
+    .navigation {
+        gap: 20px;
+    }
+}

@@ -1,5 +1,7 @@
 import { FaStar } from "react-icons/fa";
+
 import type { CamperReview } from "@/types/camper";
+
 import styles from "./CamperReviews.module.css";
 
 interface CamperReviewsProps {
@@ -26,7 +28,10 @@ export default function CamperReviews({
             ) : (
                 <ul className={styles.list}>
                     {reviews.map((review) => (
-                        <li className={styles.card} key={review.id}>
+                        <li
+                            className={styles.card}
+                            key={review.id}
+                        >
                             <div className={styles.header}>
                                 <span
                                     className={styles.avatar}
@@ -45,19 +50,25 @@ export default function CamperReviews({
 
                                     <div
                                         className={styles.rating}
-                                        aria-label={`${review.reviewer_rating} out of 5 stars`}
+                                        aria-label={`${
+                                            review.reviewer_rating
+                                        } out of 5 stars`}
                                     >
-                                        {Array.from({ length: 5 }, (_, index) => (
-                                            <FaStar
-                                                className={
-                                                    index < review.reviewer_rating
-                                                        ? styles.starActive
-                                                        : styles.starInactive
-                                                }
-                                                aria-hidden="true"
-                                                key={index}
-                                            />
-                                        ))}
+                                        {Array.from(
+                                            { length: 5 },
+                                            (_, index) => (
+                                                <FaStar
+                                                    className={
+                                                        index <
+                                                        review.reviewer_rating
+                                                            ? styles.starActive
+                                                            : styles.starInactive
+                                                    }
+                                                    aria-hidden="true"
+                                                    key={index}
+                                                />
+                                            ),
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +78,7 @@ export default function CamperReviews({
                             </p>
                         </li>
                     ))}
-                    </ul>
+                </ul>
             )}
         </section>
     );

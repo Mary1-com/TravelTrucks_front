@@ -53,13 +53,6 @@
     line-height: 20px;
 }
 
-.text {
-    color: var(--color-text);
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 24px;
-}
-
 @keyframes spin {
     to {
         transform: rotate(360deg);

@@ -82,7 +82,7 @@ export interface CamperReview {
     reviewer_rating: number;
     comment: string;
     createdAt: string;
-    }
+}
 
 export interface CamperDetails
     extends Omit<CamperListItem, "coverImage"> {

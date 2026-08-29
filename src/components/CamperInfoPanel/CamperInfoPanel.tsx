@@ -121,7 +121,6 @@ export default function CamperInfoPanel({
                         </li>
                     ))}
 
-
                     <li className={styles.feature}>
                         {formLabels[camper.form]}
                     </li>

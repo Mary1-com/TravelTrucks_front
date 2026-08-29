@@ -1,36 +1,241 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TravelTrucks
+
+TravelTrucks is a camper rental web application built with Next.js and
+TypeScript. Users can browse available campers, apply backend filters, load
+additional results, view detailed camper information, explore image galleries
+and reviews, and submit booking requests.
+
+## Live Demo
+
+[TravelTrucks on Vercel](https://travel-trucks-front-roan.vercel.app/)
+
+## Features
+
+### Home page
+
+- responsive hero section
+- navigation to the camper catalog
+- active navigation state
+
+### Camper catalog
+
+- camper data loaded from the backend
+- backend filtering through query parameters
+- filtering by:
+  - location
+  - camper form
+  - engine type
+  - transmission type
+- separate draft and applied filter states
+- filter reset
+- pagination with `Load more`
+- four additional campers loaded per request
+- loading overlay during asynchronous requests
+- empty-results state
+- responsive camper cards
+- camper details opened in a new browser tab
+
+### Camper details
+
+- dynamic route for every camper
+- complete camper information
+- vehicle characteristics and amenities
+- interactive image gallery
+- four gallery thumbnails
+- active thumbnail indication
+- user reviews
+- five-star rating scale
+- responsive booking form
+- client-side form validation
+- booking request submission to the backend
+- success toast after a `201 Created` response
+- loading and error states
+
+### UI and accessibility
+
+- desktop, tablet, and mobile layouts
+- semantic HTML
+- keyboard-accessible controls
+- focus-visible states
+- accessible labels and status messages
+- optimized images with `next/image`
+- page metadata, canonical URLs, Open Graph, and Twitter metadata
+
+## Technologies
+
+- [Next.js 16](https://nextjs.org/)
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TanStack Query](https://tanstack.com/query/latest)
+- [CSS Modules](https://github.com/css-modules/css-modules)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [ESLint](https://eslint.org/)
+- [Vercel](https://vercel.com/)
+
+## API
+
+The application uses the TravelTrucks API:
+
+```text
+https://campers-api.goit.study
+```
+
+Main endpoints:
+
+```text
+GET  /campers
+GET  /campers/:camperId
+GET  /campers/:camperId/reviews
+POST /campers/:camperId/booking-requests
+```
+
+Catalog query parameters:
+
+```text
+page
+perPage
+location
+form
+engine
+transmission
+```
+
+Each catalog request loads four campers.
+
+A booking request sends:
+
+```json
+{
+  "name": "User name",
+  "email": "user@example.com"
+}
+```
+
+## Routes
+
+| Route                 | Description                                   |
+| --------------------- | --------------------------------------------- |
+| `/`                   | Home page                                     |
+| `/catalog`            | Camper catalog and filters                    |
+| `/catalog/[camperId]` | Camper details, reviews, gallery, and booking |
 
 ## Getting Started
 
-First, run the development server:
+### Requirements
+
+- Node.js 20 or newer
+- npm
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Mary1-com/TravelTrucks_front.git
+cd TravelTrucks_front
+```
+
+Install dependencies:
+
+```bash
+npm ci
+```
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+No environment variables are required because the public API base URL is
+configured in the application.
 
-## Learn More
+## Available Scripts
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Starts the development server.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run build
+```
 
-## Deploy on Vercel
+Creates an optimized production build.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Starts the production server after a successful build.
+
+```bash
+npm run lint
+```
+
+Runs ESLint.
+
+## Project Structure
+
+```text
+src/
+├── app/
+│   ├── catalog/
+│   │   ├── [camperId]/
+│   │   ├── CatalogClient.tsx
+│   │   └── page.tsx
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── BookingForm/
+│   ├── CamperCard/
+│   ├── CamperGallery/
+│   ├── CamperInfoPanel/
+│   ├── CamperReviews/
+│   ├── EmptyCatalog/
+│   ├── FiltersSidebar/
+│   ├── Header/
+│   └── LoadingOverlay/
+├── lib/
+│   └── api/
+├── providers/
+└── types/
+```
+
+## Verification
+
+Before committing changes, run:
+
+```bash
+npm run lint
+npm run build
+git diff --check
+```
+
+Manual verification includes:
+
+- home-to-catalog navigation
+- backend filtering
+- filter reset
+- `Load more` pagination
+- camper details opening in a new tab
+- gallery thumbnail switching
+- five-star review rendering
+- booking validation and submission
+- success toast
+- responsive layouts
+- absence of horizontal overflow
+- absence of application errors in the browser console
+
+## Author
+
+**Maryna Vinnikova**
+
+- GitHub: [Mary1-com](https://github.com/Mary1-com)

@@ -4,7 +4,7 @@
     align-items: center;
 
     width: 100%;
-    min-height: 744px;
+    min-height: 840px;
     padding: 48px 24px;
     border-radius: 20px;
 
@@ -111,14 +111,16 @@
     outline-offset: 3px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
     .empty {
         min-height: auto;
         padding: 40px 16px;
     }
 
     .image {
+        width: 100%;
         max-width: 320px;
+        margin: 0 auto;
     }
 
     .actions {
