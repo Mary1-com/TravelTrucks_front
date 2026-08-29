@@ -69,6 +69,7 @@ export default function CamperGallery({
                                     src={image.thumb}
                                     alt=""
                                     fill
+                                    loading={index === 0 ? "eager" : "lazy"}
                                     sizes="(max-width: 700px) 22vw, 136px"
                                 />
                             </button>

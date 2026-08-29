@@ -1,4 +1,6 @@
 import type {
+    BookingRequest,
+    BookingResponse,
     CamperDetails,
     CamperFilters,
     CamperListResponse,
@@ -90,4 +92,32 @@ export async function fetchCamperReviews(
     }
 
     return response.json() as Promise<CamperReview[]>;
+}
+
+export async function createBookingRequest(
+    camperId: string,
+    booking: BookingRequest,
+    signal?: AbortSignal,
+): Promise<BookingResponse> {
+    const response = await fetch(
+        `${API_BASE_URL}/campers/${encodeURIComponent(
+            camperId,
+        )}/booking-requests`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(booking),
+            signal,
+        },
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            `Failed to send booking request: ${response.status}`,
+        );
+    }
+
+    return response.json() as Promise<BookingResponse>;
 }

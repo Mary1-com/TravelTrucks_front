@@ -1,3 +1,12 @@
+export interface BookingRequest {
+    name: string;
+    email: string;
+}
+
+export interface BookingResponse {
+    message: string;
+}
+
 export type CamperForm =
     | "alcove"
     | "panel_van"

@@ -72,7 +72,11 @@ export default function CamperDetailsClient({
 
             <div className={styles.bottom}>
                 <CamperReviews reviews={reviews} />
-                <BookingForm camperName={camper.name} />
+                {/* <BookingForm camperName={camper.name} /> */}
+                <BookingForm
+                    camperId={camper.id}
+                    camperName={camper.name}
+                />
             </div>
         </main>
     );

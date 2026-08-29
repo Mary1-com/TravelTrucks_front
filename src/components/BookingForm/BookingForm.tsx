@@ -1,13 +1,18 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
 import {
+    useEffect,
     useState,
     type ChangeEvent,
     type FormEvent,
 } from "react";
+import { createBookingRequest } from "@/lib/api/campers";
+import type { BookingRequest } from "@/types/camper";
 import styles from "./BookingForm.module.css";
 
 interface BookingFormProps {
+    camperId: string;
     camperName: string;
 }
 
@@ -23,10 +28,34 @@ const emailPattern =
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function BookingForm({
+    camperId,
     camperName,
 }: BookingFormProps) {
     const [errors, setErrors] = useState<FormErrors>({});
-    const [isSuccess, setIsSuccess] = useState(false);
+    const [submitError, setSubmitError] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+
+    const {
+        mutateAsync: sendBookingRequest,
+        isPending,
+    } = useMutation({
+        mutationFn: (booking: BookingRequest) =>
+        createBookingRequest(camperId, booking),
+    });
+
+    useEffect(() => {
+        if (!successMessage) {
+            return;
+        }
+
+        const timeoutId = window.setTimeout(() => {
+            setSuccessMessage("");
+        }, 5000);
+
+        return () => {
+            window.clearTimeout(timeoutId);
+        };
+    }, [successMessage]);
 
     const clearFieldError = (
         event: ChangeEvent<HTMLInputElement>,
@@ -38,10 +67,11 @@ export default function BookingForm({
             [field]: undefined,
         }));
 
-        setIsSuccess(false);
+        setSubmitError("");
+        setSuccessMessage("");
     };
 
-    const handleSubmit = (
+    const handleSubmit = async (
         event: FormEvent<HTMLFormElement>,
     ) => {
         event.preventDefault();
@@ -64,13 +94,34 @@ export default function BookingForm({
 
         if (Object.keys(nextErrors).length > 0) {
             setErrors(nextErrors);
-            setIsSuccess(false);
+            setSubmitError("");
+            setSuccessMessage("");
             return;
         }
 
         setErrors({});
-        setIsSuccess(true);
-        form.reset();
+        setSubmitError("");
+        setSuccessMessage("");
+
+        try {
+            const response = await sendBookingRequest({
+                name,
+                email,
+            });
+
+            setSuccessMessage(
+                response.message ||
+                `Your booking request for ${camperName} has been sent.`,
+            );
+
+            form.reset();
+        } catch (error) {
+            setSubmitError(
+                error instanceof Error
+                ? error.message
+                : "Failed to send booking request.",
+            );
+        }
     };
 
     return (
@@ -89,22 +140,27 @@ export default function BookingForm({
             <form
                 className={styles.form}
                 onSubmit={handleSubmit}
+                aria-busy={isPending}
                 noValidate
             >
-            <div className={styles.field}>
-                <label className={styles.visuallyHidden} htmlFor="name">
-                    Name
-                </label>
+                <div className={styles.field}>
+                    <label
+                        className={styles.visuallyHidden}
+                        htmlFor="name"
+                    >
+                        Name
+                    </label>
 
-                <input
-                    className={`${styles.input} ${
-                        errors.name ? styles.inputError : ""
+                    <input
+                        className={`${styles.input} ${
+                            errors.name ? styles.inputError : ""
                             }`}
                         id="name"
                         name="name"
                         type="text"
                         placeholder="Name*"
                         autoComplete="name"
+                        disabled={isPending}
                         aria-invalid={Boolean(errors.name)}
                         aria-describedby={
                             errors.name ? "name-error" : undefined
@@ -140,11 +196,12 @@ export default function BookingForm({
                         type="email"
                         placeholder="Email*"
                         autoComplete="email"
+                        disabled={isPending}
                         aria-invalid={Boolean(errors.email)}
                         aria-describedby={
                             errors.email ? "email-error" : undefined
                         }
-                            onChange={clearFieldError}
+                        onChange={clearFieldError}
                     />
 
                     {errors.email && (
@@ -158,16 +215,30 @@ export default function BookingForm({
                     )}
                 </div>
 
-                <button className={styles.button} type="submit">
-                    Send
+                <button
+                    className={styles.button}
+                    type="submit"
+                    disabled={isPending}
+                >
+                    {isPending ? "Sending..." : "Send"}
                 </button>
 
-                {isSuccess && (
-                    <p className={styles.success} role="status">
-                        Your booking request for {camperName} has been sent.
+                {submitError && (
+                    <p className={styles.submitError} role="alert">
+                        {submitError}
                     </p>
                 )}
             </form>
+
+            {successMessage && (
+                <div
+                    className={styles.notification}
+                    role="status"
+                    aria-live="polite"
+                >
+                    {successMessage}
+                </div>
+            )}
         </section>
     );
 }
