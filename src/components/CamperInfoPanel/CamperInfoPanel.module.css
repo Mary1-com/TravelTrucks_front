@@ -44,8 +44,7 @@
     color: #ffc531;
 }
 
-.location svg,
-.feature svg {
+.location svg {
     flex-shrink: 0;
 }
 
@@ -99,7 +98,7 @@
 
 .detailsList {
     display: grid;
-    gap: 12px;
+    gap: 8px;
 
     margin: 0 auto;
     padding-top: 16px;

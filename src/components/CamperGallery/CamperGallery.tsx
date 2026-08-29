@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
+
 import type { CamperGalleryImage } from "@/types/camper";
+
 import styles from "./CamperGallery.module.css";
 
 interface CamperGalleryProps {
@@ -52,24 +54,35 @@ export default function CamperGallery({
 
             <ul className={styles.thumbnails}>
                 {orderedImages.map((image, index) => {
-                    const isSelected = image.id === selectedImage.id;
+                    const isSelected =
+                        image.id === selectedImage.id;
 
                     return (
                         <li key={image.id}>
                             <button
                                 className={`${styles.thumbnailButton} ${
-                                    isSelected ? styles.selected : ""
-                                    }`}
+                                    isSelected
+                                        ? styles.selected
+                                        : ""
+                                }`}
                                 type="button"
-                                aria-label={`Show ${camperName} image ${index + 1}`}
+                                aria-label={`Show ${camperName} image ${
+                                    index + 1
+                                }`}
                                 aria-pressed={isSelected}
-                                onClick={() => setSelectedImageId(image.id)}
+                                onClick={() =>
+                                    setSelectedImageId(image.id)
+                                }
                             >
                                 <Image
                                     src={image.thumb}
                                     alt=""
                                     fill
-                                    loading={index === 0 ? "eager" : "lazy"}
+                                    loading={
+                                        index === 0
+                                            ? "eager"
+                                            : "lazy"
+                                    }
                                     sizes="(max-width: 700px) 22vw, 136px"
                                 />
                             </button>

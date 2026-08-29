@@ -30,7 +30,6 @@
     min-width: 0;
 }
 
-.status,
 .error {
     padding: 48px;
     text-align: center;
@@ -94,6 +93,10 @@
     .layout {
         grid-template-columns: minmax(0, 1fr);
         gap: 32px;
+
+        width: 100%;
+        max-width: 888px;
+        margin: 0 auto;
     }
 
     .results {

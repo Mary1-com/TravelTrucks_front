@@ -150,8 +150,20 @@
     line-height: 20px;
 }
 
+@media (min-width: 1101px) {
+    .booking {
+        min-height: 384px;
+        margin-top: 56px;
+    }
+}
+
 @media (max-width: 1100px) {
     .booking {
+        margin-top: 0;
+    }
+
+    .booking {
+        min-height: 0;
         margin-top: 0;
     }
 }

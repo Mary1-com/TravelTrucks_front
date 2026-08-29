@@ -67,8 +67,8 @@ export default function FiltersSidebar({
                 <PiMapTrifold
                     className={
                         filters.location.trim()
-                        ? styles.locationIconActive
-                        : styles.locationIcon
+                            ? styles.locationIconActive
+                            : styles.locationIcon
                     }
                     aria-hidden="true"
                 />
@@ -171,8 +171,8 @@ function FilterGroup({
                             name={name}
                             value={value}
                             checked={selectedValue === value}
-                                onChange={(event) =>
-                                    onChange(event.target.value)}
+                            onChange={(event) =>
+                                onChange(event.target.value)}
                         />
 
                         <span

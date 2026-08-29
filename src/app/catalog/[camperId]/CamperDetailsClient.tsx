@@ -1,15 +1,17 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+
+import BookingForm from "@/components/BookingForm/BookingForm";
+import CamperGallery from "@/components/CamperGallery/CamperGallery";
+import CamperInfoPanel from "@/components/CamperInfoPanel/CamperInfoPanel";
+import CamperReviews from "@/components/CamperReviews/CamperReviews";
 import LoadingOverlay from "@/components/LoadingOverlay/LoadingOverlay";
 import {
     fetchCamperById,
     fetchCamperReviews,
 } from "@/lib/api/campers";
-import CamperGallery from "@/components/CamperGallery/CamperGallery";
-import CamperInfoPanel from "@/components/CamperInfoPanel/CamperInfoPanel";
-import BookingForm from "@/components/BookingForm/BookingForm";
-import CamperReviews from "@/components/CamperReviews/CamperReviews";
+
 import styles from "./camperDetails.module.css";
 
 interface CamperDetailsClientProps {
@@ -25,7 +27,7 @@ export default function CamperDetailsClient({
         isError,
         isPending,
     } = useQuery({
-            queryKey: ["camper-details", camperId],
+        queryKey: ["camper-details", camperId],
         queryFn: async ({ signal }) => {
             const [camper, reviews] = await Promise.all([
                 fetchCamperById(camperId, signal),
@@ -72,7 +74,7 @@ export default function CamperDetailsClient({
 
             <div className={styles.bottom}>
                 <CamperReviews reviews={reviews} />
-                {/* <BookingForm camperName={camper.name} /> */}
+
                 <BookingForm
                     camperId={camper.id}
                     camperName={camper.name}
